@@ -33,18 +33,21 @@ function Add() {
                             className="border p-1 rounded form-control"
                             type="text"
                             placeholder="Country name"
+                            value={title}
                             onChange={(e) => setTitle(e.target.value)}
                         />
                         <input
                             className="border p-1 rounded form-control"
                             type="text"
                             placeholder="Description"
+                            value={desc}
                             onChange={(e) => setDesc(e.target.value)}
                         />
                         <input
                             className="border p-1 rounded form-control"
                             type="text"
                             placeholder="Image link"
+                            value={image}
                             onChange={(e) => setImage(e.target.value)}
                         />
                         <button type="submit" className="btn btn-primary">Add Post</button>

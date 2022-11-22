@@ -4,11 +4,12 @@ import {useAppSelector, useAppDispatch} from "../store/store";
 import {deleteTravel} from "../store/slices/userSlice";
 
 function Home() {
-    const travels = useAppSelector((state) => state.travels.travels)
+    const {travels} = useAppSelector((state) => state.travels)
     const dispatch = useAppDispatch()
 
     const handleDelete = (id: string) => {
-        dispatch(deleteTravel(id))
+        if (!id) return
+        dispatch(deleteTravel(id!))
     }
     return (
         <>
@@ -26,7 +27,7 @@ function Home() {
                                     </Link>
                                     <button
                                         className="btn btn-danger"
-                                        onClick={() => handleDelete(travel._id)}
+                                        onClick={() => handleDelete(travel._id!)}
                                     >
                                         Delete
                                     </button>

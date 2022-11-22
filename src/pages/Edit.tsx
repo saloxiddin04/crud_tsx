@@ -2,40 +2,45 @@ import React, {useEffect, useState} from 'react';
 import {useAppDispatch, useAppSelector} from "../store/store";
 import {useNavigate, useParams} from "react-router-dom";
 import {getSingleTravel, updateTravel} from "../store/slices/userSlice";
-import {travel} from "../interfaces/user";
 
 function Edit() {
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const {id} = useParams()
+    const {travel} = useAppSelector((state) => state.travels)
+
+    useEffect(() => {
+        if (!id) return
+        dispatch(getSingleTravel(id))
+    }, [])
+
+    useEffect(() => {
+        if (!travel) return
+        setHandleItems()
+    }, [travel])
+
     const [item, setItem] = useState({
         title: "",
         desc: "",
         image: ""
     })
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
-    const {id} = useParams()
-    const travel = useAppSelector<any>((state) => state.travels.travel)
 
-    useEffect(() => {
-        dispatch(getSingleTravel(id))
-    }, [])
-
-    useEffect(() => {
-        if (travel) {
-            setItem({
-                title: travel.title,
-                desc: travel.desc,
-                image: travel.image
-            })
-        }
-    }, [travel])
+    const setHandleItems = () => {
+        if (!travel) return
+        setItem({
+            title: travel?.title!,
+            desc: travel?.desc!,
+            image: travel?.image!
+        })
+    }
 
     const handleSubmit = (e: any) => {
         e.preventDefault()
         let data = {
-            _id: travel._id,
-            title: travel.title,
-            desc: travel.desc,
-            image: travel.image
+            _id: id,
+            title: travel?.title,
+            desc: travel?.desc,
+            image: travel?.image
         }
         dispatch(updateTravel(data))
         alert("Travel edited successfully!")

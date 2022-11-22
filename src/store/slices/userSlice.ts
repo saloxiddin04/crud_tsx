@@ -4,14 +4,14 @@ import axios from "axios";
 
 interface UserState {
     travels: travel[] | null,
-    travel: {} | null
+    travel: travel | null
     loading: boolean,
     errors: any
 }
 
 const initialState: UserState = {
     travels: [],
-    travel: {},
+    travel: null,
     loading: false,
     errors: null
 }
@@ -28,7 +28,7 @@ export const getUsers = createAsyncThunk<travel[]>(
     }
 )
 
-export const deleteTravel = createAsyncThunk(
+export const deleteTravel = createAsyncThunk<string, string>(
     "travels/delete",
     async (id: string, thunkAPI) => {
         try {
@@ -41,7 +41,7 @@ export const deleteTravel = createAsyncThunk(
     }
 )
 
-export const addTravel = createAsyncThunk(
+export const addTravel = createAsyncThunk<travel, Object>(
     "travels/add",
     async (item: object, thunkAPI) => {
         try {
@@ -54,9 +54,9 @@ export const addTravel = createAsyncThunk(
     }
 )
 
-export const getSingleTravel = createAsyncThunk(
+export const getSingleTravel = createAsyncThunk<travel, string>(
     "travel/getSingle",
-    async (id: any, thunkAPI) => {
+    async (id, thunkAPI) => {
         try {
             const res = await axios.get(`https://mern-app-travel-crud.herokuapp.com/api/travel/${id}`)
             return res.data.travel
@@ -66,9 +66,9 @@ export const getSingleTravel = createAsyncThunk(
     }
 )
 
-export const updateTravel = createAsyncThunk(
+export const updateTravel = createAsyncThunk<travel, Object | any>(
     "travel/update",
-    async (item:travel, thunkAPI) => {
+    async (item, thunkAPI) => {
         try {
             const res = await axios.put(`https://mern-app-travel-crud.herokuapp.com/api/travel/${item._id}`, item)
             thunkAPI.dispatch(getUsers())
@@ -100,13 +100,6 @@ export const travelSlice = createSlice({
             state.loading = false
             state.errors = action.payload
         })
-        builder.addCase(deleteTravel.pending, (state) => {
-            state.loading = true
-        })
-        builder.addCase(deleteTravel.fulfilled, (state, {payload}: PayloadAction<travel[]>) => {
-            state.travels = payload
-            state.loading = false
-        })
         builder.addCase(addTravel.pending, (state) => {
             state.loading = true
         })
@@ -124,7 +117,7 @@ export const travelSlice = createSlice({
             state.loading = true
         })
         builder.addCase(updateTravel.fulfilled, (state, {payload}) => {
-            state.travels = payload
+            state.travel = payload
             state.loading = false
         })
     }
