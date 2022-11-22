@@ -103,7 +103,7 @@ export const travelSlice = createSlice({
         builder.addCase(addTravel.pending, (state) => {
             state.loading = true
         })
-        builder.addCase(addTravel.fulfilled, (state, {payload}) => {
+        builder.addCase(addTravel.fulfilled, (state, _) => {
             state.loading = false
         })
         builder.addCase(getSingleTravel.pending, (state, _) => {
