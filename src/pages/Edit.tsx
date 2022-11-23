@@ -38,9 +38,9 @@ function Edit() {
         e.preventDefault()
         let data = {
             _id: id,
-            title: travel?.title,
-            desc: travel?.desc,
-            image: travel?.image
+            title: item?.title,
+            desc: item?.desc,
+            image: item?.image
         }
         dispatch(updateTravel(data))
         alert("Travel edited successfully!")
