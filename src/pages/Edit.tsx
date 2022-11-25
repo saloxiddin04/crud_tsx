@@ -34,7 +34,7 @@ function Edit() {
         })
     }
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: React.SyntheticEvent) => {
         e.preventDefault()
         let data = {
             _id: id,
