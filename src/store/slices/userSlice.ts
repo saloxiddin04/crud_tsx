@@ -20,7 +20,7 @@ export const getUsers = createAsyncThunk<travel[]>(
     "travels/get",
     async (_, thunkAPI) => {
         try {
-            const response = await axios.get("https://mern-app-travel-crud.herokuapp.com/api/travel")
+            const response = await axios.get("https://travels-7b04.onrender.com/api/travel")
             return response.data.travels
         } catch (error) {
             thunkAPI.rejectWithValue(error)
@@ -32,7 +32,7 @@ export const deleteTravel = createAsyncThunk<string, string>(
     "travels/delete",
     async (id: string, thunkAPI) => {
         try {
-            const res = await axios.delete(`https://mern-app-travel-crud.herokuapp.com/api/travel/${id}`)
+            const res = await axios.delete(`https://travels-7b04.onrender.com/api/travel/${id}`)
             thunkAPI.dispatch(getUsers())
             return res.data.travels
         } catch (e) {
@@ -45,7 +45,7 @@ export const addTravel = createAsyncThunk<travel, Object>(
     "travels/add",
     async (item: object, thunkAPI) => {
         try {
-            const res = await axios.post("https://mern-app-travel-crud.herokuapp.com/api/travel/add", item)
+            const res = await axios.post("https://travels-7b04.onrender.com/api/travel/add", item)
             thunkAPI.dispatch(getUsers())
             return res.data.travels
         } catch (e) {
@@ -58,7 +58,7 @@ export const getSingleTravel = createAsyncThunk<travel, string>(
     "travel/getSingle",
     async (id, thunkAPI) => {
         try {
-            const res = await axios.get(`https://mern-app-travel-crud.herokuapp.com/api/travel/${id}`)
+            const res = await axios.get(`https://travels-7b04.onrender.com/api/travel/${id}`)
             return res.data.travel
         } catch (e) {
             thunkAPI.rejectWithValue(e)
@@ -70,7 +70,7 @@ export const updateTravel = createAsyncThunk<travel, Object | any>(
     "travel/update",
     async (item, thunkAPI) => {
         try {
-            const res = await axios.put(`https://mern-app-travel-crud.herokuapp.com/api/travel/${item._id}`, item)
+            const res = await axios.put(`https://travels-7b04.onrender.com/api/travel/${item._id}`, item)
             thunkAPI.dispatch(getUsers())
             return res.data.travel
         } catch (e) {
